@@ -76,14 +76,14 @@ find /home/deploy/apps/robotics-lab-booking -maxdepth 2 -type d | sort
 初始化命令：
 
 ```bash
-echo "IMAGE=ghcr.io/<your-org>/robotics-lab-booking-app:latest"
+echo "IMAGE=ghcr.io/lynn61liu/robotics-lab-booking-app:latest"
 ```
 
 如果服务器可以访问镜像仓库，也可检查：
 
 ```bash
 podman login ghcr.io
-podman pull ghcr.io/<your-org>/robotics-lab-booking-app:latest
+podman pull ghcr.io/lynn61liu/robotics-lab-booking-app:latest
 ```
 
 验收标准：
@@ -166,7 +166,7 @@ podman run -d \
   --env-file /home/deploy/apps/robotics-lab-booking/config/.env \
   -v /home/deploy/apps/robotics-lab-booking/data:/app/data:Z \
   -v /home/deploy/apps/robotics-lab-booking/logs:/app/logs:Z \
-  ghcr.io/<your-org>/robotics-lab-booking-app:latest
+  ghcr.io/lynn61liu/robotics-lab-booking-app:latest
 ```
 
 查看容器：

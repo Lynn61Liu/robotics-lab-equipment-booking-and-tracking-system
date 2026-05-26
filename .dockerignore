@@ -1,0 +1,10 @@
+.git
+.github
+target
+*.log
+*.db
+*.lock.db
+*.mv.db
+*.trace.db
+.DS_Store
+deployDoc
