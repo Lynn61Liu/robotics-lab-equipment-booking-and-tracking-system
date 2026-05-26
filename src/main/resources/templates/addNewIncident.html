@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Add New Incident</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+
+	<script src= "/js/bookingViewUser.js"></script>
+	<link rel="stylesheet" href="/css/nav.css" />
+	<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/BookingViewUser.css" />
+</head>
+
+<body class="f-12">
+	<nav class="main-nav">
+		<img src="https://research-hub.auckland.ac.nz/assets/imgs/uoa-logo.svg" alt="logo" />
+		<div class="cate">
+			<ul class="nav flex-column">
+				<li class="nav-item nav-header">
+					<a
+							id="equipmentList-link"
+							class="nav-link active" href="#">
+						<i class="fa-solid fa-tachograph-digital nav-icon"></i>
+						Equipment</a
+					>
+				</li>
+				<div class="sub-nav-outline">
+					<li class="nav-item nav-sub">
+						<a class="nav-link" href="#">Sort By Availability</a>
+					</li>
+					<li class="nav-item nav-sub">
+						<a class="nav-link" href="#">Sort By Brand </a>
+					</li>
+					<li class="nav-item nav-sub">
+						<a class="nav-link" href="#">Sort By Room</a>
+					</li>
+				</div>
+			</ul>
+			<ul class="nav flex-column">
+				<li class="nav-item nav-header">
+					<a class="nav-link" href="#">
+						<i class="fa-regular fa-calendar-days nav-icon"></i>Bookings</a
+					>
+				</li>
+			</ul>
+			<ul class="nav flex-column">
+				<li class="nav-item nav-header">
+					<a class="nav-link" href="#">
+						<i class="fa-solid fa-file-circle-exclamation nav-icon"></i>
+						Incident Report</a
+					>
+				</li>
+			</ul>
+		</div>
+  </nav>
+    <div class="right">
+        <header>
+            <div class="search">
+                <form class="d-flex" role="search">
+                    <input
+                            class="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                    />
+                    <button class="btn btn-outline-success" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+
+                <div>
+                    <img
+                            src="https://static.vecteezy.com/system/resources/previews/002/002/403/original/man-with-beard-avatar-character-isolated-icon-free-vector.jpg "
+                            alt="Avatar"
+                            class="avatar"
+                    />
+                </div>
+            </div>
+            <div class="myline"></div>
+            <div class="breadcrumb">
+                <div class="path">Booking > View Booking<span id="path-name"></span></div>
+            </div>
+        </header>
+
+      <section class="bookingList detail">
+        <div class="base-info">
+            <div class="pic">
+                <img id="previewImage" alt="" />
+                <div class="image-change noshow" id="image-change">
+                    <input
+                            type="file"
+                            id="imageInput"
+                            class="imageInput"
+                            accept="image/*"
+                            placeholder="Upload Image"
+                    />
+                </div>
+            </div>
+          <div class="info-right">
+              <div class="e-name"><span id="eq-name">Incubator IN 301 Gravity convection</span></div>
+              <div><span>UOA ID :</span> <span id="uoaID">MSO6021A</span></div>
+              <div><span>Brand :</span> <span id="brand">Aglient</span></div>
+              <div><span>Model :</span> <span id="model">MS060214</span> </div>
+              <div><span>Serial Number :</span> <span id="snum">MY45001037</span></div>
+          </div>
+          <div class="info-right">
+              <br><br>
+              <div><span>Status :</span> <span id="eq-status">Available</span></div>
+              <div><span>Due Date :</span> <span id="due">2023-09-02</span></div>
+          </div>
+      </div>
+
+          <div class="maintain">
+              <div>
+                  <div><span> Request State:</span> <span id="bookingstatus"></span></div>
+                  <div><span> Booking ID:</span> <span id="bookingid"></span></div>
+                  <div><span> Request Date:</span></div>
+                  <div><span> Created By:</span> <span id="bookedby"></span></div>
+                  <div><span> Phone:</span> <span id="phone"></span></div>
+                  <div><span> Pickup Location:</span> <span id="pickuplocation"></span></div>
+                  <div><span> Start Date:</span> <span id="starttime"></span></div>
+                  <div><span> End Date:</span> <span id="endtime"> </span></div>
+                  <div><span> Last Modified Date:</span> <span id="lastmodifieddate"></span></div>
+              </div>
+              <div>
+                  <span> Why extensions of period:</span> <textarea
+                      name="note"
+                      id="note-content"
+                      cols="30"
+                      rows="5"
+                      disabled
+              ></textarea>
+              </div>
+                <!--TODO: hyperlink here to "detail"-->
+              <a id="booking-view" href="" target="_blank" rel="noopener noreferrer">View Detail</a>
+          </div>
+
+          <div class="admin-op">
+              <button
+                      type="button"
+                      class="btn btn-primary edit-cancel"
+                      id="edit-cancel"
+              >
+                  Cancel
+              </button>
+
+              <button type="button" class="btn btn-primary" id="edit">Edit</button>
+              <!--            <button type="button" class="btn btn-primary" id="save">Save</button>-->
+              <!-- @if(status == "rquested") NEED TO ADD CONDITION-->
+              <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="btn-cancel"
+              >
+                  Cancel
+              </button>
+              <!-- @endif -->
+              <button type="button" id="back-button" class="btn btn-primary">
+                  <i class="fa-solid fa-chevron-left"
+                     style="color: #fff"></i>
+                  Back
+              </button>
+          </div>
+      </section>
+
+
+          <!-- cancel Modal -->
+          <div
+                  class="modal fade"
+                  id="cancelModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+          >
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="ModalLabel">Cancel Confirmation</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to cancel the booking?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm btn-dark" id="cancel" onclick="confirmCancel()">Confirm</button>
+                    </div>
+                  </div>
+              </div>
+          </div>
+    </div>
+  </body>
+</html>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+  integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+  integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+  crossorigin="anonymous"
+></script>
+
+<script src="/js/bookingViewUser.js"></script>
+<!--<script src="/js/nav.js"></script>-->
+
+<!--Navigation-->

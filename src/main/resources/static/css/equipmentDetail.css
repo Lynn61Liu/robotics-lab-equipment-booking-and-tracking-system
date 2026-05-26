@@ -1,0 +1,191 @@
+.eitemList {
+    margin: 30px 30px;
+    position: relative;
+
+}
+
+.detail {
+    font-size: 14px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    color: #6D6E6F;
+    top: 150px;
+    max-width: 1150px;
+}
+
+.eitemList>div {
+    margin-top: 20px;
+    padding: 16px 20px;
+}
+
+.base-info {
+    /* border: red 1px solid; */
+    display: flex;
+    gap: 60px;
+
+}
+
+.pic {
+    position: relative;
+    /* border: 1px salmon solid; */
+    background-color: rgba(164, 162, 162, 0.166);
+    width: 538px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#previewImage {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    /* margin-bottom: 10px; */
+
+}
+
+#edit-img {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.info-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.e-name {
+    font-size: 22px;
+    font-weight: bolder;
+}
+
+.info-right div span:first-of-type,
+.usage div span:first-of-type,
+.maintain div span:first-of-type {
+    font-weight: bold;
+    color: #304B5B;
+    margin-right: 8px;
+}
+
+.usage>div:first-child,
+.maintain>div:first-child {
+    /* background-color: #fff; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+#booking-view,
+#record-view {
+    position: absolute;
+    bottom: 0px;
+    right: 30px;
+    padding: 8px 10px;
+    /* text-shadow: 1px 1px rgba(0, 0, 0, 0.101); */
+    color: #67E1DD;
+    font-weight: bold;
+}
+
+.maintain>div:last-of-type {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail .usage,
+.detail .maintain {
+    /* font-size: 16px; */
+    padding-bottom: 48px;
+    position: relative;
+    background-color: rgba(164, 162, 162, 0.166);
+}
+
+#booking-view:hover,
+#record-view:hover {
+    color: orange
+}
+
+#note-content {
+    padding: 8px 8px;
+    background-color: rgb(238, 237, 237);
+}
+
+.detail .admin-op {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-bottom: 50px;
+    padding-right: 0px;
+}
+
+
+
+.admin-op .btn {
+    text-align: center;
+    background-color: #168092;
+}
+
+.admin-op .btn:hover,
+.admin-op .edit-cancel:hover {
+    background-color: orange;
+}
+
+.usage .toggle-container {
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+
+}
+
+.edit-cancel {
+    display: none;
+}
+
+
+.image-change {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.342);
+    /* display: none; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.noshow {
+    display: none;
+}
+
+.show {
+    display: flex;
+}
+
+.over-due-icon {
+    margin-left: 8px;
+}
+
+
+.available {
+    padding: 3px 11px;
+    border-radius: 20px;
+    /* font-weight: bold; */
+    color: #174342;
+    background-color: #67e1dd6d;
+}
+.unavailable {
+    padding: 3px 11px;
+    border-radius: 20px;
+    /* font-weight: bold; */
+    color: #8b3737;
+    background-color: #e1676b6d;
+}
+.hidden{
+    display: none;
+}

@@ -1,0 +1,146 @@
+.eitemList {
+  color:#707070;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 30px 30px;
+}
+
+.edit {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+}
+
+.edit:hover {
+  color: orange;
+  cursor: pointer;
+
+}
+
+.del:hover {
+  color: orange;
+  cursor: pointer;
+
+}
+
+.del {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+}
+
+.eitem {
+  position: relative;
+  min-width: 787px;
+  max-width: 1160px;
+  padding: 8px;
+
+  background: #BDC8D022;
+  height: 188px;
+  display: flex;
+
+  text-align: left;
+  font: normal 17px/24px Arial;
+  letter-spacing: 0px;
+  color: #616467;
+
+}
+
+
+
+.lab-img {
+  width: 247px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.lab-img img {
+  object-fit: contain;
+  max-width: 100%; 
+  max-height: 100%; 
+
+}
+
+.info-box {
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-left: 32px;
+  padding-top: 10px;
+}
+
+.infor01 {
+  border-right: #8c8b8b67  dotted 2px;
+  /* opacity: 0.3; */
+}
+
+.item-unit {
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 32px;
+
+}
+
+.item-name {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.item-unit span:first-child {
+  font-weight: bold;
+
+}
+
+
+ /* ADD FORM LYNN */
+ .booking-title{
+  margin-bottom: 22px;
+ color: #168092;
+ font-size: 20px;
+ font-weight: bold;
+ }
+ .booking-outline{
+  padding-left: 32px;
+  /* border: red 1px solid; */
+ 
+ }
+ .booking-item-outline{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+ }
+ .requested{
+  padding: 6px 12px;
+  background-color: #0d6efd40;
+  color:#147FEB;
+  border-radius: 20px;
+ }
+ .report-outline{
+  padding-top: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap:16px;
+ }
+ .my-primary{
+  background-color: #168092;
+  text-align: center;
+  width: 100px;
+ }
+
+.tips{
+  /* background-color: #f0afaf5c; */
+border: 2px gray dotted;
+height: auto;
+ }
+
+ #description{
+  /* background-color: pink; */
+  overflow: auto;
+ }
+

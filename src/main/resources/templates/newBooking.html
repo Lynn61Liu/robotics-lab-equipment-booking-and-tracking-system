@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>newBooking</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/common.css" />
+  <link rel="stylesheet" href="/css/newBooking.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="mainNav">
+    <img
+      src="https://research-hub.auckland.ac.nz/assets/imgs/uoa-logo.svg"
+      alt="logo"
+    />
+    <div class="cate">
+      <ul class="nav flex-column">
+        <li class="nav-item nav-header">
+          <a class="nav-link " href="#" id="nav-dashboard">
+            <i class="fa-solid fa-list-check nav-icon"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav flex-column">
+        <li class="nav-item nav-header">
+          <a class="nav-link" href="#" id="nav-equipment">
+            <i class="fa-solid fa-tachograph-digital nav-icon"></i>
+            <span>Equipment</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav flex-column">
+        <li class="nav-item nav-header">
+          <a id="nav-booking active" class="nav-link">
+            <i class="fa-solid fa-calendar-days nav-icon"></i>
+            <span>Bookings</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav flex-column">
+        <li class="nav-item nav-header">
+          <a class="nav-link" href="#" id="nav-incident">
+            <i class="fa-solid fa-file-circle-exclamation nav-icon"></i>
+            <span>Incident Report</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="right">
+    <header>
+      <div class="search lab-logo">
+        <div class="logo-outline">
+          <img src="/img/labname.png" alt="" />
+        </div>
+
+        <div class="user-role">
+          <div class="UPI"></div>
+          <div class="avatar">A</div>
+        </div>
+      </div>
+      <div class="myline"></div>
+      <div class="breadcrumb">
+        <div class="path">Equipment > New Booking</div>
+      </div>
+    </header>
+
+    <section class="eitemList detail">
+      <div class="base-info">
+        <div class="img-outline">
+          <div class="pic">
+            <img id="previewImage" src="/img/Oscilloscope.jpeg" alt="" />
+          </div>
+
+          <button class="btn btn-primary" id="edit-img">Edit</button>
+        </div>
+
+
+        <div class="info-left ">
+          <div class="description"><span id="description"></span></div>
+          <div><span>UOA ID: </span> <span id="uoaID"></span></div>
+          <div><span>Brand: </span> <span id="brand"></span></div>
+          <div><span>Model: </span> <span id="model"></span></div>
+          <div> <span>Serial Number: </span> <span id="serialNumber"></span></div>
+          <div> <span>Pickup Allowed: </span> <span id="Pickup"></span></div>
+        </div>
+
+
+        <div class="info-right ">
+
+          <div><span>Status: </span> <span id="status" class=" status-style style-collected"></span></div>
+          <div><span>Due Date: </span> <span id="endtime"></span></div>
+          <div><span>Max Rental Duration: </span> <span id="max-rental-duration"></span></div>
+          <div><span>operating requirements: </span> <span id="operating" class="text-danger">Yes</span></div>
+
+          <div><span>health & safety requirements: </span> <span id="safety" class="text-danger">Yes</span></div>
+        </div>
+
+
+      </div>
+      <div class="bookingCalendar">
+        <div class="calendarTitle">
+          Booking calendar
+        </div>
+
+        <table class="table align-middle" id="calendarTable" >
+        
+        </table>
+        <!-- <div> View All</div> -->
+      </div>
+
+      <form action="" id="newBookingForm" name="newBookingForm" method="post">
+        <div class="usage">
+
+          <div>
+            <div>
+              <span>UPI:</span> <br> <input id="upi" name="bookedBy" required><span class="must">*</span>
+            </div>
+            <div>
+              <span>Start date:</span> <br> <input type="date" id="startTime" name="startTime" min="" required><span
+                class="must">*</span>
+              <!-- <div class="tips must hidden" id="beforetips" >The book day exceed max rental duration, please fill the reason </div> -->
+
+            </div>
+            <div>
+              <span>(option)Explain the reason for exceed max days:</span> <br>
+              <textarea name="note" id="note-content" cols="30" rows="3"
+                style="height: 85px; margin-top: 10px; background-color: white;"></textarea>
+            </div>
+            <div>
+              <span>End date:</span> <br>
+              <input type="date" id="endTime" name="endTime" min="" required><span class="must">*</span><br>
+              <div class="tips must hidden" id="maxtips">The book day exceed max rental duration, please fill the reason
+              </div>
+            </div>
+
+          </div>
+      </form>
+
+
+      <div class="admin-op">
+        <button type="button" class="btn btn-primary" id="edit-cancel">
+          Cancel
+        </button>
+
+        <button type="submit" class="btn btn-primary" id="btn-book" disabled>
+          Submit
+        </button>
+      </div>
+  </div>
+  </section>
+
+  </div>
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+  integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+  integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/6d009c3487.js" crossorigin="anonymous"></script>
+
+<script src="/js/newBooking.js"></script>
+<script src="/js/nav.js"></script>
+
+<!--Navigation-->
+
+<script>
+  cancelButton.addEventListener('click', function () {
+    console.log('edit-cancel was clicked');
+    window.location.href = 'http://localhost:8080/equipmentList';
+  });
+</script>

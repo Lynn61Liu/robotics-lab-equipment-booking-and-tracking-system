@@ -1,0 +1,365 @@
+.bookingList {
+  margin: 30px 30px;
+  position: relative;
+}
+
+.bookingList > div {
+  padding: 16px 20px;
+}
+
+#previewImage {
+  max-width: 50%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.info-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.e-name {
+  font-size: 22px;
+  font-weight: bolder;
+}
+
+.info-right div span:first-of-type,
+.usage div span:first-of-type,
+.maintain div span:first-of-type {
+  font-weight: bold;
+  color: #304b5b;
+  margin-right: 8px;
+}
+
+.usage > div:first-child,
+.maintain > div:first-child {
+  /* background-color: #fff; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+#booking-view,
+#record-view {
+  position: absolute;
+  bottom: 0px;
+  right: 30px;
+  padding: 8px 10px;
+  /* text-shadow: 1px 1px rgba(0, 0, 0, 0.101); */
+  color: #67e1dd;
+  font-weight: bold;
+}
+
+.maintain > div:last-of-type {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail .usage,
+.detail .maintain {
+  /* font-size: 16px; */
+  padding-bottom: 48px;
+  position: relative;
+  /* background-color: rgba(164, 162, 162, 0.166); */
+}
+
+#booking-view:hover,
+#record-view:hover {
+  color: orange;
+}
+
+#note-content {
+  padding: 8px 8px;
+  background-color: rgb(238, 237, 237);
+}
+
+.detail .admin-op {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+  padding-right: 0px;
+}
+
+.admin-op .btn {
+  text-align: center;
+  background-color: #168092;
+}
+
+.admin-op .btn:hover,
+.admin-op .edit-cancel:hover {
+  background-color: orange;
+}
+
+.usage .toggle-container {
+  width: 100%;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.edit-cancel {
+  display: none;
+}
+
+.pic {
+  position: relative;
+}
+
+.image-change {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.342);
+  /* display: none; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noshow {
+  display: none;
+}
+
+.show {
+  display: flex;
+}
+
+.over-due-icon {
+  margin-left: 8px;
+}
+
+.eitemList {
+  margin: 30px 30px;
+  position: relative;
+}
+
+.detail {
+  font-size: 14px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #6d6e6f;
+  top: 150px;
+  max-width: 80%;
+  min-width: 1200px;
+}
+
+.eitemList > div {
+  /* margin-top: 20px; */
+  padding: 16px 20px;
+}
+
+.base-info {
+  font-size: 12px;
+  background-color: #6d6e6f11;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 2px gray dotted;
+  gap: 60px;
+}
+
+#description {
+  font-size: 14px;
+}
+
+.pic {
+  position: relative;
+  background-color: rgba(164, 162, 162, 0.166);
+  width: 300px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-outline {
+  width: 300px;
+  height: 200px;
+  margin-left: 3px;
+}
+
+.pic img {
+  width: 300px;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  border-radius: 10px;
+}
+
+button,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 10px;
+  width: 350px;
+  height: 45px;
+}
+
+#edit-img {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.info-left,
+.info-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-left {
+  border-right: 2px gray dotted;
+}
+
+.info-right {
+  padding-top: 42px;
+}
+
+.description {
+  font-size: 22px;
+  font-weight: bolder;
+}
+
+.user-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.user-info div span:first-of-type,
+.info-right div span:first-of-type,
+.info-left div span:first-of-type,
+.usage div span:first-of-type,
+.maintain div span:first-of-type {
+  font-weight: bold;
+  color: #304b5b;
+  margin-right: 8px;
+}
+
+.usage > div:first-child,
+.maintain > div:first-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  justify-self: center;
+}
+
+#note,
+#reject-note {
+  padding: 8px 16px;
+  margin-top: 10px;
+  height: 85px;
+  width: 100%;
+}
+
+#booking-view,
+#record-view {
+  position: absolute;
+  bottom: 0px;
+  right: 30px;
+  padding: 8px 10px;
+  color: #67e1dd;
+  font-weight: bold;
+}
+
+.maintain > div:last-of-type {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail .usage {
+  position: relative;
+  background-color: #6d6e6f11;
+}
+
+.usage {
+  padding: 40px 20px 20px 70px;
+}
+
+#booking-view:hover,
+#record-view:hover {
+  color: orange;
+}
+
+#note-content {
+  padding: 8px 8px;
+  background-color: rgb(238, 237, 237);
+}
+
+.detail .admin-op {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin: 50px 0;
+  padding-right: 0px;
+  margin-bottom: 50px;
+  PADDING-BOTTOM: 32px;
+}
+
+.admin-op .btn {
+  text-align: center;
+  background-color: #168092;
+}
+
+.admin-op .btn:hover,
+.admin-op .edit-cancel:hover {
+  background-color: orange;
+}
+
+.usage .toggle-container {
+  width: 100%;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.edit-cancel {
+  display: none;
+}
+
+input {
+  padding: 0 20px;
+}
+
+.maintain {
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 32px;
+  background-color: #6d6e6f11;
+}
+.modal-footer {
+  display: flex;
+  gap: 16px;
+}
+
+.modal-footer button {
+  width: 80px;
+  font-size: 12px;
+}
+.maintain input {
+  height: 26px;
+  width: 147px;
+}
+#reject-note {
+  background-color: rgba(243, 78, 78, 0.2);
+}
+.reject-reason {
+  padding: 16px 32px;
+  border-top: 2px gray dotted;
+  background-color: #6d6e6f11;
+}
+.fa-eye{
+  color: purple;
+  padding-left: 8px;
+}

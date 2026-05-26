@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>All Bookings</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+
+	<script src= "/js/allBooking.js"></script>
+	<script src= "/js/nav.js"></script>
+	<link rel="stylesheet" href="/css/nav.css" />
+	<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/allBookings.css" />
+
+</head>
+
+<body class="f-12">
+	<nav class="mainNav">
+		<img
+		  src="https://research-hub.auckland.ac.nz/assets/imgs/uoa-logo.svg"
+		  alt="logo"
+		/>
+		<div class="cate">
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a class="nav-link " href="#" id="nav-dashboard">
+				<i class="fa-solid fa-list-check nav-icon"></i>
+				<span>Dashboard</span>
+			  </a>
+			</li>
+		  </ul>
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a class="nav-link" href="#" id="nav-equipment">
+				<i class="fa-solid fa-tachograph-digital nav-icon"></i>
+				<span>Equipment</span>
+			  </a>
+			</li>
+		  </ul>
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a id="nav-booking" class="nav-link active">
+				<i class="fa-solid fa-calendar-days nav-icon"></i>
+				<span>Bookings</span>
+			  </a>
+			</li>
+		  </ul>
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a class="nav-link" href="#" id="nav-incident">
+				<i class="fa-solid fa-file-circle-exclamation nav-icon"></i>
+				<span>Incident Report</span>
+			  </a>
+			</li>
+		  </ul>
+		</div>
+	  </nav>
+	<div class="right">
+		<header id="allbookings-header">
+			<div class="search lab-logo">
+				<div class="logo-outline">
+				  <img src="/img/labname.png" alt="" />
+				</div>
+	  
+				<div class="user-role">
+				  <div class="UPI">
+					
+				  </div>
+				  <div class="avatar">A</div>
+				</div>
+			  </div>
+			<div class="myline"></div>
+			<!-- <div class="breadcrumb">
+				<div class="path">
+					<a href="javascript:void(0);">Booking Request</a> > <a href="javascript:void(0);">All Bookings</a>
+				</div>
+			</div> -->
+		</header>
+	
+
+		<section class="eitemList">
+			<div class="table-responsive">
+				<table class="table table-borderless table-hover ">
+					<thead>
+						<tr>
+							<th scope="col">Booking Date</th>
+							<th scope="col">Booking ID</th>
+							<th scope="col">Status</th>
+							<th scope="col">Equipment ID</th>
+							<th scope="col">Renter</th>
+							<th scope="col">Start Day</th>
+							<th scope="col">Return Day</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody class="table-data" id="all-booking-list">
+						
+					</tbody>
+				</table>
+			</div>
+			<div class="pagination-container">
+				<button
+					class="pagination-button"
+					id="prev-button"
+					title="Previous page"
+					aria-label="Previous page"
+				>
+				  &lt;
+				</button>
+			  
+				<div id="pagination-numbers"></div>
+			  
+				<button
+					class="pagination-button"
+					id="next-button"
+					title="Next page"
+					aria-label="Next page"
+				>
+				  &gt;
+				</button>
+			  </div>
+		</section>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="confirmRejectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="confirmRejectModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title ms-auto" id="confirmRejectModalLabel">Reject Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form>
+					<div class="modal-body">
+						<span class="mb-1">
+							Are you sure you want to reject the booking?
+						</span>
+						<!-- <div class="mb-3">
+							<label for="comment1" class="col-form-label">Add Comment:</label>
+							<textarea class="form-control" id="comment1"></textarea>
+						</div> -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary btn-sm btn-dark"onclick="confirmReject()">Yes</button>
+						<button type="button" class="btn btn-secondary btn-sm w-85" data-bs-dismiss="modal">No</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="confirmApproveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="confirmApproveModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title ms-auto" id="confirmApproveModalLabel">Approve Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+
+					<form>
+							<span class="mb-1">
+								Are you sure you want to approve the booking?
+							</span>
+							<!-- <div class="mb-3">
+								<label for="comment" class="col-form-label">Add Comment:</label>
+								<textarea class="form-control" id="comment"></textarea>
+							</div> -->
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary btn-sm btn-dark" onclick="confirmApprove()">Yes</button>
+							<button type="button" class="btn btn-secondary btn-sm w-85"
+								data-bs-dismiss="modal">No</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title ms-auto" id="confirmDeleteModalLabel">Delete Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<span class="mb-1">
+						Are you sure you want to delete the booking
+					</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-sm btn-dark" onclick="confirmDelete()">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="confirmReturnModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="confirmReturnModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title ms-auto" id="confirmReturnModalLabel">Return Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form>
+					<div class="modal-body">
+						<span class="mb-1">
+							Are you sure you want to update the booking as Returned Safely?
+						</span>
+						<!-- <div class="mb-3">
+							<label for="comment1" class="col-form-label">Add Comment:</label>
+							<textarea class="form-control" id="comment1"></textarea>
+						</div> -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary btn-sm btn-dark"onclick="confirmReturn()">Yes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="confirmIncidentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="confirmIncidentModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title ms-auto" id="confirmIncidentModalLabel">Raise incidence</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<span class="mb-1">
+						Are you sure you want to raise the incidence?
+					</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-sm btn-dark">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="confirmLentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="confirmLentModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title ms-auto" id="confirmLentModalLabel">Lent Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<span class="mb-1">
+						Are you sure you want to lent the booking
+					</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-sm btn-dark" onclick="confirmLent()">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="modal fade" id="confirmFaultyReturnModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="confirmFaultyReturnModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title ms-auto" id="confirmFaultyReturnModalLabel">Faulty Return Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<span class="mb-1">
+						Are you sure you want to update the booking as Faulty Return
+					</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-sm btn-dark" onclick="confirmFaultyReturn()">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+
+<script src="https://kit.fontawesome.com/6d009c3487.js" crossorigin="anonymous"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"
+></script>
+<!--Navigation-->
+
+<!-- <script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const allBookingsLink = document.getElementById("equipmentList-link");
+
+		if (allBookingsLink) {
+			allBookingsLink.addEventListener("click", function () {
+				console.log('The "equipmentList" link was clicked.');
+				window.location.href = "http://localhost:8080/equipmentList";
+			});
+		}
+	});
+</script> -->

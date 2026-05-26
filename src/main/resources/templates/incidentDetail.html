@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Incident Detail</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+
+	<link rel="stylesheet" href="/css/nav.css" />
+	<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/incidentDetail.css" />
+</head>
+
+<body class="f-12">
+	<nav class="mainNav">
+		<img
+		  src="https://research-hub.auckland.ac.nz/assets/imgs/uoa-logo.svg"
+		  alt="logo"
+		/>
+		<div class="cate">
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a class="nav-link " href="#" id="nav-dashboard">
+				<i class="fa-solid fa-list-check nav-icon"></i>
+				<span>Dashboard</span>
+			  </a>
+			</li>
+		  </ul>
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a class="nav-link" href="#" id="nav-equipment">
+				<i class="fa-solid fa-tachograph-digital nav-icon"></i>
+				<span>Equipment</span>
+			  </a>
+			</li>
+		  </ul>
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a id="nav-booking" class="nav-link">
+				<i class="fa-solid fa-calendar-days nav-icon"></i>
+				<span>Bookings</span>
+			  </a>
+			</li>
+		  </ul>
+		  <ul class="nav flex-column">
+			<li class="nav-item nav-header">
+			  <a class="nav-link active" href="#" id="nav-incident">
+				<i class="fa-solid fa-file-circle-exclamation nav-icon"></i>
+				<span>Incident Report</span>
+			  </a>
+			</li>
+		  </ul>
+		</div>
+	  </nav>
+	<div class="right">
+		<div class="search lab-logo">
+			<div class="logo-outline">
+			  <img src="/img/labname.png" alt="" />
+			</div>
+  
+			<div class="user-role">
+			  <div class="UPI"></div>
+			  <div class="avatar">A</div>
+			</div>
+		  </div>
+		<div class="breadcrumb">
+			<div class="path"><a href="#">Incident Reports</a> >  Incident ID:<span id="incidentID"></span> </div>
+		</div>
+
+		<section class="eitemList gap-0">
+			<form>
+				<div class="detail-div">
+					<div class="row inc-detail-box">
+						
+						<div class="lab-img image-container">
+							<img  id="incident-img" src="https://picsum.photos/200/300?grayscale" alt="" />
+						</div>
+						<div class="info-box infor01 ">
+							<div></div>
+							<div class="item-unit item-name" id="eq-name"></div>
+							<div class="item-unit">
+								<span class="unit-name">UOA ID:</span>
+								<span id="uoaID"></span>
+							</div>
+							<div class="item-unit">
+								<span class="unit-name">Brand:</span>
+								<span id="brand"></span>
+							</div>
+	
+							<div class="item-unit">
+								<span class="unit-name">Model:</span>
+								<span id="model"></span>
+							</div>
+							<div class="item-unit">
+								<span>Serial Number:</span>
+								<span id="snum"></span>
+							</div>
+							
+	
+							<div></div>
+						</div>
+						<div class="info-box infor02">
+							<div></div>
+							<div class="item-unit item-name"></div>
+							<div class="item-unit">
+								<span>Status:</span>
+								<span id="status"></span>
+							</div>
+							<div class="item-unit">
+								<span>Due Day:</span>
+								<span id="dueday"></span>
+							</div>
+							
+							<div class="item-unit">
+								<span>Max Hire Period:</span>
+								<span id="maxdays"></span>
+							</div>
+						</div>
+					</div>
+					<hr class="dashed-line" />
+					
+					<div class="row inc-detail-box">
+						<div class="col-md-4 booking-outline">
+							<div>
+								<h5 class="booking-title">Booking Information</h5>
+								<ul class="list-unstyled booking-item-outline" >
+									<li class="item-unit"><label for="" class="unit-name  fw-bold">Booking ID:</label> <span id="bookingID"></span>
+									</li>
+									<li class="item-unit"><label for="" class="unit-name  fw-bold">Booked By:</label> <span id="bookedBy"></span>
+									</li>
+
+									<li class="item-unit"><label for="" class="unit-name  fw-bold">Start Date:</label>
+										<span id="startTime"></span></li>
+									<li class="item-unit"><label for="" class="unit-name  fw-bold">Return Date:</label>
+										<span id="endTime"></span></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-8 report-outline">
+							<div>
+								<ul class="list-unstyled booking-item-outline" >
+								<li class="item-unit"><label for="" class="unit-name fw-bold">Report Status:</label> <span id="incidentStatus"></span></li>
+								<li class="item-unit tips hidden" id="tips"><label for="" class="unit-name fw-bold" >
+								</label> <span id="status-tips" >After the student provides additional information about the incident report, the status will be updated to  <strong>Pending</strong>.</span></li>
+							
+							</ul>
+							<div class="report-content">
+								<div class="item-unit"><strong> Provide detailed Information about the Incident: </strong></div>
+								<div class="">
+									<textarea class="form-control description-text border border-secondary "  id="description" rows="6"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row m-4 justify-content-end" id="actionButtons">
+				
+				</div>
+			</form>
+		</section>
+	</div>
+	<div class="modal fade" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title ms-auto" id="confirmDeleteModalLabel">Delete Incident</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			  <p>
+				Are you sure you want to delete the report
+			  </p>
+			  <div class="mb-3">
+				<label for="comment" class="col-form-label">Add Comment:</label>
+				<textarea class="form-control" id="comment"></textarea>
+			  </div>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-primary btn-sm btn-dark">Yes</button>
+			  <button type="button" class="btn btn-secondary btn-sm w-85" data-bs-dismiss="modal">No</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+</body>
+
+</html>
+<script src="/js/incidentDetail.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+	integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+	crossorigin="anonymous"></script>
+<script>
+	document.write(
+		'<script src="http://' +
+		(location.host || "${1:localhost}").split(":")[0] +
+		':${2:35729}/livereload.js?snipver=1"></' +
+		"script>"
+	);
+</script>
+<script src="/js/nav.js"></script>
+
+<script src="https://kit.fontawesome.com/6d009c3487.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

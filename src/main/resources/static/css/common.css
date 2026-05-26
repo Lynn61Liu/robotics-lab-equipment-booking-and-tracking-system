@@ -1,0 +1,204 @@
+/* Modal */
+
+.modal-title{
+    font-size: 26px;
+
+}
+.modal-body {
+    height: 170px;
+}
+.modal-body p {
+    padding-left: 10px;
+    border-radius: 10px;
+    height: 30px;
+    background-color: rgba(255, 0, 0, 0.315);
+}
+
+
+/* APPLY TO equipmentDetail ,equipmentList */
+
+.dialog-title-del{
+    color: #CF706D;
+}
+.dialog-btn-cancel{
+    color: #CF706D;
+    background-color: transparent;
+    border-style: none;
+
+}
+
+.dialog-btn-del{
+    border-color: transparent;
+    background-color: #CF706D;
+}
+
+.dialog-btn-del:hover {
+    border-color: transparent;
+    background-color: red;
+    box-shadow: #616467;
+}
+
+.btn-dark{
+    background-color: #304B5B;
+    text-align: center;
+}
+.btn-dark:hover{
+    background-color: #943008;
+    border: 1px solid transparent;
+}
+.bold-text {
+    font-weight: bold;
+}
+hr.dashed-line {
+	background-color: #fff;
+	/* border-top: 2px dashed #8c8b8b; */
+    border-top: #616467 dotted 2px;
+}
+.image-container > img {
+    aspect-ratio: 16/9
+}
+.gap-0{
+    gap: 0;
+}
+.detail-div{
+    background: #BDC8D022;
+    padding: 15px;
+}
+div.inc-detail-box{
+    display: flex;
+    position:relative;
+}
+textarea.description-text{
+    /* border-radius:20px; */
+    padding:20px;
+    outline:.0;
+}
+.mt-25{
+    margin-top: 25px;
+}
+.p-15{
+    padding:15px;
+}
+
+.table-hover>tbody>tr:hover>*{
+    background-color: #00ddff4c;
+}
+
+@media screen and (max-width: 992px) {
+
+}
+
+@media screen and (min-width: 992px) {
+	/* nav.main-nav {
+		height: 100vh;
+	} */
+}
+.f-12{
+    font-size: 12px;
+}
+a.text-decoration-none.text-theme {
+    color: #00ddff;
+}
+div.breadcrumb a{
+    /* text-decoration: none; */
+    color: #304B5B;
+}
+.w-85{
+    width:85px;
+}
+span.date-passed{
+    opacity: 0.8;
+}
+.pagination-container {
+    height: 100px;
+    max-width: 1160px;
+    display: flex;
+    align-items: center;
+
+    justify-content: center;
+}
+
+.pagination-number,
+.pagination-button {
+    font-size: 1.1rem;
+    background-color: transparent;
+    border: none;
+    margin: 0.25rem 0.25rem;
+    cursor: pointer;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: .2rem;
+}
+
+/* .pagination-number:hover,
+.pagination-button:not(.disabled):hover {
+    background: #fff;
+} */
+
+.active-pagination {
+    color: #fff;
+    background: #67E1DD;
+}
+
+.hidden {
+    display: none;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+/* status style */
+
+.status-style {
+    border-radius: 20px;
+  padding: 4px 13px;
+}
+.style-requested,
+.style-pending {
+ 
+  background-color: #1480eb28;
+  color: #147feb;
+}
+.style-pickup ,
+.style-waitingpickup,
+.style-waitingforpickup{
+  color: orange;
+  background-color: #fda1282b;
+}
+.style-collected,
+.style-approved,.style-lent{
+  color: #479055;
+  background-color: #3beb142f;
+}
+
+.style-rejected,
+.style-moreinforequested {
+  background-color: #ea3f3f28;
+  color: #7c1111;
+}
+
+.style-incident {
+  background-color: purple;
+  color: white;
+}
+
+.style-cancelled,
+.style-closed,
+.style-safelyreturn{
+  background-color: #3c3b3be6;
+  color:white;
+}
+.lab-logo img{
+ width: 472px;
+}
+
+#eq-name{
+    max-width: 80%;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+}
+
+
+
