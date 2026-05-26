@@ -99,6 +99,8 @@ podman pull ghcr.io/lynn61liu/robotics-lab-booking-app:latest
 初始化命令：
 
 ```bash
+mkdir -p /home/deploy/apps/robotics-lab-booking/{app,config,data,logs,backup}
+
 cat > /home/deploy/apps/robotics-lab-booking/config/.env <<'EOF'
 APP_NAME=robotics-lab-booking
 APP_PORT=8080
@@ -118,6 +120,16 @@ cat /home/deploy/apps/robotics-lab-booking/config/.env
 - `/home/deploy/apps/robotics-lab-booking/config/.env` 已创建
 - 其中包含独立的 `HOST_PORT`
 - 其中包含 H2 文件库路径，且路径指向第二项目自己的数据目录
+
+说明：
+- 如果服务器暂时不启用 Google OAuth，保持 `SPRING_PROFILES_ACTIVE=prod` 即可，不需要配置 `GOOGLE_CLIENT_ID` 和 `GOOGLE_CLIENT_SECRET`。
+- 如果需要启用 Google OAuth，把 `SPRING_PROFILES_ACTIVE` 改成 `prod,oauth`，并额外加入：
+
+```bash
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_REDIRECT_URI=https://your-domain/login/oauth2/code/google
+```
 
 ## 第 5 步：准备 Podman Pod
 
@@ -203,6 +215,88 @@ podman logs -f robotics-lab-booking-app
 - 没有端口占用错误
 - 没有数据库初始化致命错误
 - 没有容器反复退出/重启现象
+
+## 第 7.5 步：手动拉取新镜像并更新容器
+
+目标：
+- 当 GitHub Actions 已经发布新镜像到 GHCR 后，手动把服务器容器切到新版本。
+
+推荐做法：
+- 优先使用固定 tag，例如 `sha-提交短哈希`，避免 `latest` 指向变化带来回滚困难。
+- 如果只是快速验证，也可以先用 `latest`。
+
+先确认当前镜像：
+
+```bash
+podman ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
+podman images | grep robotics-lab-booking-app
+```
+
+登录并拉取新镜像：
+
+```bash
+podman login ghcr.io
+podman pull ghcr.io/lynn61liu/robotics-lab-booking-app:latest
+```
+
+如果你要拉固定版本，把上面的 `latest` 改成例如：
+
+```bash
+podman pull ghcr.io/lynn61liu/robotics-lab-booking-app:sha-<commit-sha>
+```
+
+停止并删除旧容器：
+
+```bash
+podman stop robotics-lab-booking-app
+podman rm robotics-lab-booking-app
+```
+
+用新镜像重新创建容器：
+
+```bash
+podman run -d \
+  --name robotics-lab-booking-app \
+  --pod robotics-lab-booking-pod \
+  --env-file /home/deploy/apps/robotics-lab-booking/config/.env \
+  -v /home/deploy/apps/robotics-lab-booking/data:/app/data:Z \
+  -v /home/deploy/apps/robotics-lab-booking/logs:/app/logs:Z \
+  ghcr.io/lynn61liu/robotics-lab-booking-app:latest
+```
+
+如果要使用固定版本镜像，把最后一行改成例如：
+
+```bash
+ghcr.io/lynn61liu/robotics-lab-booking-app:sha-<commit-sha>
+```
+
+启动后检查：
+
+```bash
+podman ps -a
+podman logs --tail 200 robotics-lab-booking-app
+curl -I http://127.0.0.1:18080/
+curl -s http://127.0.0.1:18080/getRole
+```
+
+如果新版本异常，回滚方法就是重新 `podman run` 回上一个可用的镜像 tag。
+
+验收操作：
+
+```bash
+podman ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
+podman logs --tail 200 robotics-lab-booking-app
+curl -I http://127.0.0.1:18080/
+curl -s http://127.0.0.1:18080/getRole
+ls -lah /home/deploy/apps/robotics-lab-booking/data
+```
+
+验收标准：
+- `robotics-lab-booking-app` 处于 `Up` 状态，没有反复退出
+- 日志里能看到 Spring Boot 启动完成，没有 `Client id must not be empty`
+- `curl -I http://127.0.0.1:18080/` 返回 `200`、`302` 或其他预期 HTTP 响应，而不是连接失败
+- `curl -s http://127.0.0.1:18080/getRole` 能返回应用响应，例如 `ROLE_ADMIN`
+- `/home/deploy/apps/robotics-lab-booking/data` 里的 H2 数据文件仍然存在，没有因为重建容器丢失
 
 ## 第 8 步：检查 H2 数据文件是否生成
 

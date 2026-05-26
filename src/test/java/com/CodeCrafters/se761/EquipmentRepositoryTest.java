@@ -2,13 +2,12 @@ package com.CodeCrafters.se761;
 
 import com.CodeCrafters.se761.equipment.Equipment;
 import com.CodeCrafters.se761.equipment.EquipmentRepository;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Timestamp;
 import java.util.Optional;
@@ -20,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * EquipmentService class.
  * Author: Jonathon Lee
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class EquipmentRepositoryTest {
 
     @Mock
@@ -55,7 +54,6 @@ public class EquipmentRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
     }
 
     @Test

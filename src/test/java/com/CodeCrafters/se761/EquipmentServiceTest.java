@@ -5,10 +5,11 @@ import com.CodeCrafters.se761.equipment.EquipmentRepository;
 import com.CodeCrafters.se761.equipment.EquipmentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
 import java.sql.Timestamp;
@@ -24,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * EquipmentController class.
  * Author: Jonathon Lee
  */
+@ExtendWith(MockitoExtension.class)
 public class EquipmentServiceTest {
 
     @Mock
@@ -113,7 +115,6 @@ public class EquipmentServiceTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
     }
 
     @Test

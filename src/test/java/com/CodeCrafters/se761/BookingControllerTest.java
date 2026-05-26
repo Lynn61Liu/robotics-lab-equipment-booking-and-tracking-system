@@ -7,10 +7,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,12 +31,14 @@ import java.sql.Date;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 /**
  * This class contains unit tests for the BookingController, which is responsible for handling HTTP requests related to bookings.
  * It uses the Spring MVC framework and Mockito for mocking dependencies.
  * Author: Tony Huynh
  */
+@ExtendWith(MockitoExtension.class)
 public class BookingControllerTest {
 
     private MockMvc mockMvc;
@@ -106,7 +109,6 @@ public class BookingControllerTest {
 
     @BeforeEach
     public void setUp(){
-        MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(bookingController).build();
     }
 
@@ -137,9 +139,6 @@ public class BookingControllerTest {
 
     @Test
     public void bookingDelete_test() throws Exception {
-        Mockito.when(bookingRepository.findByEquipmentid(BOOKING_3.getId()))
-                .thenReturn(Optional.of(BOOKING_3));
-
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteBooking/{id}", BOOKING_3.getId())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -148,9 +147,6 @@ public class BookingControllerTest {
 
     @Test
     public void changeBooking_status_returned() throws Exception {
-        Mockito.when(bookingRepository.findByEquipmentid(BOOKING_4.getId()))
-                .thenReturn(Optional.of(BOOKING_4));
-
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/returnedBooking/{id}", BOOKING_3.getId())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -170,7 +166,7 @@ public class BookingControllerTest {
         new_booking.setBookedBy("thuy744");
         new_booking.setEquipmentid(51L);
 
-        Mockito.doNothing().when(bookingService).addNewBooking(new_booking);
+        Mockito.doNothing().when(bookingService).addNewBooking(any(Booking.class));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/process")

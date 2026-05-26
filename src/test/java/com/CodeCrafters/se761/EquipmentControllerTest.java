@@ -5,10 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * to/from the frontend.
  * Author: Jonathon Lee
  */
+@ExtendWith(MockitoExtension.class)
 public class EquipmentControllerTest {
 
     private MockMvc mockMvc;
@@ -124,7 +127,6 @@ public class EquipmentControllerTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(equipmentController).build();
     }
 
@@ -168,8 +170,6 @@ public class EquipmentControllerTest {
 
     @Test
     public void equipmentDelete_success() throws Exception {
-        Mockito.when(equipmentRepository.findOneBySystemID(EQUIPMENT_1.getSystemID())).thenReturn(EQUIPMENT_1);
-
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/equipmentDelete")
                         .param("systemID", String.valueOf(EQUIPMENT_1.getSystemID()))
@@ -212,7 +212,7 @@ public class EquipmentControllerTest {
         newEquipment.setMaxUseDay(30);
         System.out.println(newEquipment.systemID);
 
-        Mockito.when(equipmentService.addNewEquipment(newEquipment)).thenReturn(expectedSystemID);
+        Mockito.when(equipmentService.addNewEquipment(any(Equipment.class))).thenReturn(expectedSystemID);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/equipmentAdd")

@@ -6,9 +6,10 @@ import com.CodeCrafters.se761.notification.NotificationController;
 import com.CodeCrafters.se761.notification.NotificationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.http.MediaType;
 
@@ -16,9 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+@ExtendWith(MockitoExtension.class)
 public class NotificationTest {
 
-    @Autowired
     private MockMvc mockMvc;
     @Mock
     private NotificationService notificationService;
@@ -29,7 +30,6 @@ public class NotificationTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(notificationController).build();
 
     }
