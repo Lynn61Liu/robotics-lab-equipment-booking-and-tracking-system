@@ -99,8 +99,7 @@ console.log(formDataJson);
      if (data.status === "success") {
         console.log("success");
         changeBookingStatus(bookingID);
-        //http://localhost:8080/allIncidents
-        window.location.href = 'http://localhost:8080/allBookings';
+        window.location.href = '/allBookings';
    
         
      }
@@ -141,6 +140,5 @@ fetch(`/editStatusBooking?bookingID=${bookingId}&status=${incidentStatus}`, {
     });
 
 }
-
 
 

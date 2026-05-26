@@ -7,16 +7,16 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(this.id);
       switch (this.id) {
         case "nav-equipment":
-          window.location.href = "http://localhost:8080/equipmentList";
+          window.location.href = "/equipmentList";
           break;
         case "nav-dashboard":
-          window.location.href = "http://localhost:8080/dashboard";
+          window.location.href = "/dashboard";
           break;
         case "nav-incident":
-          window.location.href = "http://localhost:8080/allIncidents";
+          window.location.href = "/allIncidents";
           break;
         case "nav-booking":
-            window.location.href = "http://localhost:8080/allBookings";
+            window.location.href = "/allBookings";
           break;
         default:
           break;

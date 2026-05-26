@@ -289,7 +289,7 @@ if( userRole != "ROLE_STUDENT"){
                     toasmassage.textContent += msg;
                     toast.show();
                     setTimeout(() => { toast.hide(); }, 5000)
-                    // window.location.href = "http://localhost:8080/equipmentList";
+                    // window.location.href = "/equipmentList";
                 }
 
                 var dialogDelBtn = document.querySelector(".dialog-btn-del");
@@ -323,7 +323,7 @@ if( userRole != "ROLE_STUDENT"){
                 var newEqBtn = document.querySelector(".btn-new");
                 newEqBtn.addEventListener("click", () => {
 
-                    window.location.href = "http://localhost:8080/equipmentAdd";
+                    window.location.href = "/equipmentAdd";
                 });
 
                 var dueDateList = document.querySelectorAll(".due-day");

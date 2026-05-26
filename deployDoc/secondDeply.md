@@ -149,7 +149,7 @@ podman pod ps -a
 ```bash
 podman pod create \
   --name robotics-lab-booking-pod \
-  -p 127.0.0.1:18080:8080
+  -p 0.0.0.0:18080:80
 ```
 
 查看 Pod：
@@ -161,13 +161,13 @@ podman pod inspect robotics-lab-booking-pod
 
 验收标准：
 - `robotics-lab-booking-pod` 成功创建
-- Pod 端口绑定为 `127.0.0.1:18080 -> 8080`
+- Pod 端口绑定为 `0.0.0.0:18080 -> 80`
 - 第二项目 Pod 名与第一个项目完全不同
 
 ## 第 6 步：创建第二项目容器
 
 目标：
-- 在第二项目 Pod 中创建 Spring Boot 单容器，并挂载独立数据、日志目录。
+- 在第二项目 Pod 中创建 Spring Boot 容器，并挂载独立数据、日志目录。
 
 初始化命令：
 
@@ -192,6 +192,56 @@ podman inspect robotics-lab-booking-app
 - `robotics-lab-booking-app` 成功创建并处于运行中
 - 容器位于 `robotics-lab-booking-pod` 中
 - `/app/data` 和 `/app/logs` 已挂载到第二项目独立目录
+
+## 第 6.5 步：创建 Pod 内 Nginx 入口容器
+
+目标：
+- 在同一个 Pod 内增加 Nginx 入口，让外部访问 `18080` 先进入 Nginx，再转发到 Spring Boot 的 `8080`。
+
+初始化命令：
+
+```bash
+mkdir -p /home/deploy/apps/robotics-lab-booking/nginx
+
+cat > /home/deploy/apps/robotics-lab-booking/nginx/default.conf <<'EOF'
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $http_host;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+EOF
+
+podman run -d \
+  --name robotics-lab-booking-nginx \
+  --pod robotics-lab-booking-pod \
+  -v /home/deploy/apps/robotics-lab-booking/nginx/default.conf:/etc/nginx/conf.d/default.conf:Z \
+  docker.io/library/nginx:alpine
+```
+
+查看容器：
+
+```bash
+podman ps -a --format "table {{.Names}}\t{{.PodName}}\t{{.Status}}"
+podman logs --tail 100 robotics-lab-booking-nginx
+```
+
+验收标准：
+- `robotics-lab-booking-nginx` 成功创建并处于运行中
+- `robotics-lab-booking-nginx` 与 `robotics-lab-booking-app` 位于同一个 Pod
+- Nginx 日志中没有 `502 Bad Gateway`、`connect() failed` 等 upstream 错误
 
 ## 第 7 步：检查应用启动日志
 
@@ -336,32 +386,51 @@ curl -s http://127.0.0.1:18080/getRole
 ## 第 10 步：生成 systemd user service
 
 目标：
-- 让第二个项目可以通过 `systemd --user` 管理和自启动。
+- 让第二个项目 Pod 和两个容器都可以通过 `systemd --user` 管理和自启动。
 
 初始化命令：
 
 ```bash
 mkdir -p /home/deploy/.config/systemd/user
+
 podman generate systemd \
   --name robotics-lab-booking-pod \
   --files \
   --new
-mv pod-robotics-lab-booking-pod.service /home/deploy/.config/systemd/user/robotics-lab-booking.service
+
+mv /home/deploy/pod-robotics-lab-booking-pod.service \
+  /home/deploy/.config/systemd/user/
+
+mv /home/deploy/container-robotics-lab-booking-app.service \
+  /home/deploy/.config/systemd/user/
+
+mv /home/deploy/container-robotics-lab-booking-nginx.service \
+  /home/deploy/.config/systemd/user/
+
 systemctl --user daemon-reload
-systemctl --user enable robotics-lab-booking.service
-systemctl --user start robotics-lab-booking.service
+
+systemctl --user enable pod-robotics-lab-booking-pod.service
+systemctl --user enable container-robotics-lab-booking-app.service
+systemctl --user enable container-robotics-lab-booking-nginx.service
+
+systemctl --user start pod-robotics-lab-booking-pod.service
+systemctl --user start container-robotics-lab-booking-app.service
+systemctl --user start container-robotics-lab-booking-nginx.service
 ```
 
 查看状态：
 
 ```bash
-systemctl --user status robotics-lab-booking.service
+systemctl --user status pod-robotics-lab-booking-pod.service
+systemctl --user status container-robotics-lab-booking-app.service
+systemctl --user status container-robotics-lab-booking-nginx.service
 ```
 
 验收标准：
-- `robotics-lab-booking.service` 已生成
-- `systemctl --user status robotics-lab-booking.service` 显示服务正常运行
-- 服务名与第一个项目 service 不冲突
+- `pod-robotics-lab-booking-pod.service`、`container-robotics-lab-booking-app.service`、`container-robotics-lab-booking-nginx.service` 都已生成
+- 三个 unit 均为 `enabled`
+- `systemctl --user status ...` 显示服务正常运行
+- unit 名称与第一个项目不冲突
 
 ## 第 11 步：配置开机自启会话保活
 
@@ -379,37 +448,39 @@ loginctl show-user deploy | grep Linger
 - `Linger=yes`
 - `deploy` 用户退出登录后，`systemd --user` 服务仍可保活
 
-## 第 12 步：新增宿主机反向代理规则
+## 第 12 步：验证 Pod 内 Nginx 转发入口
 
 目标：
-- 为第二个项目新增一条独立入口，不影响第一个项目。
+- 确认第二个项目已经通过 Pod 内 Nginx 暴露到 `IP:18080`，不需要修改宿主机 Nginx。
 
-做法示例：
-- 独立子域名：`robotics-lab-booking.example.com`
-- 或独立路径：`/robotics-lab-booking`
+说明：
+- 第一个项目使用了独立的 Nginx 容器，不适合直接复用。
+- 第二个项目采用“同一个 Pod 内 Spring Boot + Nginx”的方式：
+  - 宿主机 `18080`
+  - -> Pod `80`
+  - -> Nginx
+  - -> Spring Boot `8080`
+- `proxy_set_header Host $http_host` 用于保留原始 `IP:18080`，避免跳转丢端口。
 
 初始化命令：
 
-这一步要在宿主机反向代理配置里新增一条规则，具体命令取决于你们实际使用的是 Nginx、Caddy 还是 Traefik。
-
-如果是 Nginx，至少要新增一条把请求转发到：
-
-```text
-http://127.0.0.1:18080
-```
-
-变更后检查配置：
-
 ```bash
-sudo nginx -t
-sudo systemctl reload nginx
+podman pod ps
+podman ps -a --format "table {{.Names}}\t{{.PodName}}\t{{.Status}}\t{{.Ports}}"
+podman logs --tail 100 robotics-lab-booking-app
+podman logs --tail 100 robotics-lab-booking-nginx
+curl -I http://127.0.0.1:18080/
+curl -s http://127.0.0.1:18080/getRole
+curl -I http://127.0.0.1:18080/equipmentList
 ```
 
 验收标准：
-- 第二个项目有独立域名或独立路径
-- 反向代理目标指向 `127.0.0.1:18080`
-- 第一个项目原有反向代理规则未被覆盖
-- `nginx -t` 通过
+- `robotics-lab-booking-pod` 为 `Running`
+- `robotics-lab-booking-app` 和 `robotics-lab-booking-nginx` 都在同一个 Pod 内运行
+- `curl -I http://127.0.0.1:18080/` 返回 `302`
+- `curl -s http://127.0.0.1:18080/getRole` 返回 `ROLE_ADMIN`
+- `curl -I http://127.0.0.1:18080/equipmentList` 返回 `200`
+- Nginx 日志中看不到 `502 Bad Gateway`
 
 ## 第 13 步：外部访问验证
 
@@ -419,7 +490,8 @@ sudo systemctl reload nginx
 初始化命令：
 
 ```bash
-curl -I http://<your-demo-domain-or-path>
+curl -I http://<your-server-ip>:18080/
+curl -I http://<your-server-ip>:18080/equipmentList
 ```
 
 手工验证：
@@ -442,8 +514,10 @@ curl -I http://<your-demo-domain-or-path>
 初始化命令：
 
 ```bash
-systemctl --user restart robotics-lab-booking.service
-systemctl --user status robotics-lab-booking.service
+systemctl --user restart pod-robotics-lab-booking-pod.service
+systemctl --user status pod-robotics-lab-booking-pod.service
+systemctl --user status container-robotics-lab-booking-app.service
+systemctl --user status container-robotics-lab-booking-nginx.service
 ls -lah /home/deploy/apps/robotics-lab-booking/data
 curl -I http://127.0.0.1:18080/
 ```
@@ -475,7 +549,7 @@ ls -lah /home/deploy/apps/robotics-lab-booking/backup
 ## 最终验收清单
 
 最终需要全部满足：
-- 第二项目拥有独立目录、独立 Pod、独立容器、独立 service、独立反向代理入口
+- 第二项目拥有独立目录、独立 Pod、独立容器、独立 systemd unit、独立 `IP:18080` 入口
 - 第二项目可通过浏览器正常访问
 - 第二项目 H2 数据文件落在自己的持久化目录中
 - 第二项目重启后数据仍在

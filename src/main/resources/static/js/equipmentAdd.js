@@ -2,7 +2,7 @@ console.log("equipmentAdd.js");
 
 var cancelButton = document.getElementById("add-equipment-cancel");
 cancelButton.addEventListener("click", function () {
-    window.location.href = "http://localhost:8080/equipmentList";
+    window.location.href = "/equipmentList";
 });
 
 

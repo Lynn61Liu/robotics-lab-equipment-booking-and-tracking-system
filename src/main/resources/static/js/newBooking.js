@@ -236,11 +236,11 @@ console.log(bookingdata);
                     .then((data) => {
                         console.log("Response from server:", data);
                         if (data.status === "success") {
-                            window.location.href = "http://localhost:8080/allBookings";
+                            window.location.href = "/allBookings";
                         }
                         if (data.status === "error") {
                         alert("Booking date conflicts with an existing booking.");
-                          // window.location.href = "http://localhost:8080/allBookings";
+                          // window.location.href = "/allBookings";
                       }
                     })
                     .catch((error) => {
@@ -255,5 +255,3 @@ console.log(bookingdata);
           console.error("Error:", error);
       });
 });
-
-

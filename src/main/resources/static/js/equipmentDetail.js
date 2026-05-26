@@ -296,7 +296,7 @@ document.getElementById("editButton").classList.add("hidden");
           if (status === "success") {
             toasmassage.classList.add("bg-success");
             toast.show();
-            setTimeout(() => { window.location.href = "http://localhost:8080/equipmentList"; },
+            setTimeout(() => { window.location.href = "/equipmentList"; },
               5000)
 
 
@@ -349,14 +349,14 @@ document.getElementById("editButton").classList.add("hidden");
 
         bookButton.addEventListener("click", function () {
           // Redirect to the new booking page with the corresponding systemID
-          window.location.href = `http://localhost:8080/newBooking/${sysID}`;
+          window.location.href = `/newBooking/${sysID}`;
         });
 
         document.getElementById("booking-view").addEventListener("click", function () {
           // Redirect to the new booking page with the corresponding systemID
-          // window.location.href = `http://localhost:8080/BookingCalendar/${sysID}`;
+          // window.location.href = `/BookingCalendar/${sysID}`;
 
-          const url = `http://localhost:8080/BookingCalendar/${sysID}`;
+          const url = `/BookingCalendar/${sysID}`;
           window.open(url, '_blank');
         });
 
@@ -378,7 +378,7 @@ document.getElementById("editButton").classList.add("hidden");
         // view all
         var backButton = document.getElementById("backButton");
         backButton.addEventListener("click", function () {
-          window.location.href = "http://localhost:8080/equipmentList";
+          window.location.href = "/equipmentList";
         });
 
         //DATE

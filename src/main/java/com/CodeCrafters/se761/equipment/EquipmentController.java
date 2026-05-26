@@ -167,8 +167,8 @@ public class EquipmentController {
     public ResponseEntity<String> equipmentAdd(@RequestBody Equipment newEquipment) {
         Long systemID = equipmentService.addNewEquipment(newEquipment);
 
-        // Redirect to equipmentDetail for the specific systemID
-        String redirectUrl = "http://localhost:8080/equipmentDetail?sysID=" + systemID;
+        // Use a relative redirect so the current host/port keeps working behind proxies.
+        String redirectUrl = "/equipmentDetail?sysID=" + systemID;
 
         return ResponseEntity.ok("{\"status\": \"success\", \"message\": \"Equipment added successfully!\", " +
                 "\"redirectUrl\": \"" + redirectUrl + "\"}");

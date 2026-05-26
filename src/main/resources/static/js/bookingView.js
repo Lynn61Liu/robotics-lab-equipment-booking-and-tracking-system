@@ -86,7 +86,7 @@ function UpdateStatusbyname(endpoint) {
         .then(data => {
             console.log(data);
             if (data.status === "success") {
-                window.location.href = `http://localhost:8080//viewBooking/${id}`;
+                window.location.href = `/viewBooking/${id}`;
             }
         })
         .catch(error => console.error("Error:", error));
@@ -105,7 +105,7 @@ function updateStatus(mystatus) {
         .then(data => {
             console.log(data);
             // if (data.status === "success") {
-            //     window.location.href = `http://localhost:8080//viewBooking/${id}`;
+            //     window.location.href = `/viewBooking/${id}`;
             // }
         })
         .catch(error => console.error("Error:", error));
@@ -197,7 +197,7 @@ async function renderPage(BookingData, equipmentDetails) {
                 console.log("=========myIncidentID",myIncidentID);
             iconElement.addEventListener("click", (e) => {
                 console.log("onclick this icon and get incident id =", myIncidentID)
-                const newURL = `http://localhost:8080/incidentDetail/${myIncidentID}`;
+                const newURL = `/incidentDetail/${myIncidentID}`;
                 window.open(newURL);
             })}else{
                 iconElement.style.display = "none"
@@ -222,7 +222,7 @@ async function renderPage(BookingData, equipmentDetails) {
 
     backeBtn = document.getElementById("back-button");
     backeBtn.addEventListener("click", (e) => {
-        window.location.href = 'http://localhost:8080/allBookings';
+        window.location.href = '/allBookings';
     })
 }
 
@@ -332,7 +332,7 @@ function createActions(formStatus) {
             incidentButton.addEventListener("click", (e) => {
                 console.log("incidentButton onclick");
                 console.log("myBookingID", myBookingID);
-                const newURL = `http://localhost:8080/newIncident/${myBookingID}`;
+                const newURL = `/newIncident/${myBookingID}`;
                 // window.open(newURL);
                 window.location.href = newURL;
 
@@ -628,11 +628,11 @@ console.log("click delte btn:",myIncidentID);
                     })
                         .then(response => {
                             response.json();
-                            window.location.href = "http://localhost:8080/allBookings";
+                            window.location.href = "/allBookings";
                         })
                         .then(data => {
                             console.log(data);
-                            window.location.href = "http://localhost:8080/allBookings";
+                            window.location.href = "/allBookings";
                         })
                         .catch(error => console.error("Error:", error));
                 }

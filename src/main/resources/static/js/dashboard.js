@@ -150,7 +150,7 @@ function populateApprovalTable(approvalBookings) {
                 //  uoaID.textContent = equipment.systemID;
 
                 const systemIDLink = document.createElement('a');
-                systemIDLink.href=`http://localhost:8080/equipmentDetail?sysID=${equipment.systemID}`
+                systemIDLink.href=`/equipmentDetail?sysID=${equipment.systemID}`
              
                 const systemIDSpan = document.createElement('span');
                 systemIDSpan.className="equipmentView"
@@ -168,7 +168,7 @@ function populateApprovalTable(approvalBookings) {
 
         //bookingID.textContent = booking.id;
         const bookingIdLink = document.createElement('a');
-        bookingIdLink.href=`http://localhost:8080/viewBooking/${booking.id}`
+        bookingIdLink.href=`/viewBooking/${booking.id}`
  
         const bookingSpan = document.createElement('span');
         bookingSpan.className="BookingView"
@@ -275,7 +275,7 @@ function populatePickUpTable(pickUpBookings) {
                 equipmentName.textContent = equipment.description;
                // uoaID.textContent = equipment.systemID;
                const systemIDLink = document.createElement('a');
-               systemIDLink.href=`http://localhost:8080/equipmentDetail?sysID=${equipment.systemID}`
+               systemIDLink.href=`/equipmentDetail?sysID=${equipment.systemID}`
             
                const systemIDSpan = document.createElement('span');
                systemIDSpan.className="equipmentView"
@@ -293,7 +293,7 @@ function populatePickUpTable(pickUpBookings) {
         bookingDate.textContent = booking.startTime;
        // bookingID.textContent = booking.id;
        const bookingIdLink = document.createElement('a');
-       bookingIdLink.href=`http://localhost:8080/viewBooking/${booking.id}`
+       bookingIdLink.href=`/viewBooking/${booking.id}`
 
        const bookingSpan = document.createElement('span');
        bookingSpan.className="BookingView"
@@ -370,7 +370,7 @@ function populateReturnTable(returnBookings) {
                 equipmentName.textContent = equipment.description;
                // uoaID.textContent = equipment.uoaID;
                const systemIDLink = document.createElement('a');
-               systemIDLink.href=`http://localhost:8080/equipmentDetail?sysID=${equipment.systemID}`
+               systemIDLink.href=`/equipmentDetail?sysID=${equipment.systemID}`
             
                const systemIDSpan = document.createElement('span');
                systemIDSpan.className="equipmentView"
@@ -385,7 +385,7 @@ function populateReturnTable(returnBookings) {
         bookingDate.textContent = booking.startTime;
       //  bookingID.textContent = booking.id;
       const bookingIdLink = document.createElement('a');
-      bookingIdLink.href=`http://localhost:8080/viewBooking/${booking.id}`
+      bookingIdLink.href=`/viewBooking/${booking.id}`
 
       const bookingSpan = document.createElement('span');
       bookingSpan.className="BookingView"
@@ -413,7 +413,7 @@ function populateReturnTable(returnBookings) {
         })
         .then(incidentID => {
             const incidentIDLink = document.createElement('a');
-            incidentIDLink.href=`http://localhost:8080/incidentDetail/${incidentID}`;
+            incidentIDLink.href=`/incidentDetail/${incidentID}`;
             incidentIDLink.textContent=incidentID;
             incidentReport.appendChild(incidentIDLink);
 
@@ -616,5 +616,4 @@ function deleteStaff() {
             alert("An error occurred while deleting staff.");
         });
 }
-
 

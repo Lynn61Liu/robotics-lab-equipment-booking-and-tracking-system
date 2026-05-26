@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     // .then((response) => response.json())
                     .then((data) => {
                         // Handle the response from the backend
-                        window.location.href = "http://localhost:8080/allIncidents";
+                        window.location.href = "/allIncidents";
                     })
                     .catch((error) => {
                         console.error("Error:", error);

@@ -222,7 +222,7 @@ public class EquipmentControllerTest {
                 .andExpect(jsonPath("$.status").value("success"))
                 .andExpect(jsonPath("$.message").value("Equipment added successfully!"))
                 .andExpect(jsonPath("$.redirectUrl")
-                        .value("http://localhost:8080/equipmentDetail?sysID=" + expectedSystemID))
+                        .value("/equipmentDetail?sysID=" + expectedSystemID))
                 .andDo(MockMvcResultHandlers.print());
     }
 
